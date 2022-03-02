@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
             child: ElevatedButton(
       child: const Text('Home'),
       onPressed: () {
-        context.goNamed('measurement');
+        context.goNamed('measurement', params: {'id': '100'});
       },
     )));
   }

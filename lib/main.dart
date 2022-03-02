@@ -38,8 +38,8 @@ class App extends StatelessWidget {
         ),
         GoRoute(
             name: 'measurement',
-            path: '/measurement',
-            builder: (ctx, state) => const MeasurementScreen())
+            path: '/measurements/:id',
+            builder: (ctx, state) => MeasurementScreen(state.params['id']!))
       ],
       errorBuilder: (context, state) =>
           Scaffold(body: Center(child: Text(state.error.toString()))));

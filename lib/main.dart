@@ -24,22 +24,24 @@ class App extends StatelessWidget {
       theme: ThemeData(scaffoldBackgroundColor: Colors.black));
 
   final _router = GoRouter(
-      initialLocation: '/',
+      initialLocation: '/sign_in',
       routes: [
         GoRoute(
           name: 'sign_in',
-          path: '/',
+          path: '/sign_in',
           builder: (ctx, state) => const SignInScreen(),
         ),
         GoRoute(
-          name: 'home',
-          path: '/home',
-          builder: (ctx, state) => const HomeScreen(),
-        ),
-        GoRoute(
-            name: 'measurement',
-            path: '/measurements/:id',
-            builder: (ctx, state) => MeasurementScreen(state.params['id']!))
+            name: 'home',
+            path: '/',
+            builder: (ctx, state) => const HomeScreen(),
+            routes: [
+              GoRoute(
+                  name: 'measurement',
+                  path: 'measurements/:id',
+                  builder: (ctx, state) =>
+                      MeasurementScreen(state.params['id']!))
+            ]),
       ],
       errorBuilder: (context, state) =>
           Scaffold(body: Center(child: Text(state.error.toString()))));

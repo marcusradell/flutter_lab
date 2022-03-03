@@ -36,6 +36,7 @@ Future<void> main() async {
         return null;
       },
       initialLocation: '/',
+      debugLogDiagnostics: true,
       routes: [
         GoRoute(
           name: 'sign_in',

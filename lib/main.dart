@@ -27,11 +27,11 @@ Future<void> main() async {
       refreshListenable: signInStatus,
       redirect: (state) {
         final signedIn = signInStatus.isSignedIn;
-        final signingIn = state.location == '/sign_in';
+        final goingToSignIn = state.subloc == '/sign_in';
 
-        if (!signedIn && !signingIn) return '/sign_in';
+        if (!signedIn && !goingToSignIn) return '/sign_in?from=${state.subloc}';
 
-        if (signedIn && signingIn) return '/';
+        if (signedIn && goingToSignIn) return '/';
 
         return null;
       },
@@ -40,7 +40,8 @@ Future<void> main() async {
         GoRoute(
           name: 'sign_in',
           path: '/sign_in',
-          builder: (ctx, state) => const SignInScreen(),
+          builder: (ctx, state) =>
+              SignInScreen(from: state.queryParams['from']),
         ),
         GoRoute(
             name: 'home',

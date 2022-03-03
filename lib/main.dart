@@ -27,16 +27,22 @@ Future<void> main() async {
       refreshListenable: signInStatus,
       redirect: (state) {
         final signedIn = signInStatus.isSignedIn;
-        final goingToSignIn = state.subloc == '/sign_in';
+        final signInLoc = state.namedLocation('sign_in');
+        final headingToSignIn = state.subloc == signInLoc;
 
-        if (!signedIn && !goingToSignIn) return '/sign_in?from=${state.subloc}';
+        if (!signedIn && !headingToSignIn) {
+          return state
+              .namedLocation('sign_in', queryParams: {'from': state.subloc});
+        }
 
-        if (signedIn && goingToSignIn) return '/';
+        if (signedIn && headingToSignIn) {
+          return state.namedLocation('home');
+        }
 
         return null;
       },
-      initialLocation: '/',
       debugLogDiagnostics: true,
+      initialLocation: '/',
       routes: [
         GoRoute(
           name: 'sign_in',

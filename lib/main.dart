@@ -8,8 +8,14 @@ import 'package:flutter_lab/screens/measurement.dart';
 import 'package:flutter_lab/screens/sign_in.dart';
 import 'package:go_router/go_router.dart';
 
-class SignInStatus {
-  var isSignedIn = false;
+class SignInStatus extends ChangeNotifier {
+  var _isSignedIn = false;
+
+  bool get isSignedIn => _isSignedIn;
+  set isSignedIn(bool value) {
+    _isSignedIn = value;
+    notifyListeners();
+  }
 }
 
 final signInStatus = SignInStatus();
@@ -18,6 +24,7 @@ Future<void> main() async {
   const title = "Marcus Rådell's Flutter Lab";
 
   final goRouter = GoRouter(
+      refreshListenable: signInStatus,
       redirect: (state) {
         final signedIn = signInStatus.isSignedIn;
         final signingIn = state.location == '/sign_in';

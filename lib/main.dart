@@ -8,23 +8,27 @@ import 'package:flutter_lab/screens/measurement.dart';
 import 'package:flutter_lab/screens/sign_in.dart';
 import 'package:go_router/go_router.dart';
 
-void main() => runApp(App());
+class SignInStatus {
+  var isSignedIn = false;
+}
 
-class App extends StatelessWidget {
-  App({Key? key}) : super(key: key);
+final signInStatus = SignInStatus();
 
-  static const title = "Marcus Rådell's Flutter Lab";
+Future<void> main() async {
+  const title = "Marcus Rådell's Flutter Lab";
 
-  @override
-  Widget build(BuildContext context) => MaterialApp.router(
-      routeInformationParser: _router.routeInformationParser,
-      routerDelegate: _router.routerDelegate,
-      title: title,
-      themeMode: ThemeMode.dark,
-      theme: ThemeData(scaffoldBackgroundColor: Colors.black));
+  final goRouter = GoRouter(
+      redirect: (state) {
+        final signedIn = signInStatus.isSignedIn;
+        final signingIn = state.location == '/sign_in';
 
-  final _router = GoRouter(
-      initialLocation: '/sign_in',
+        if (!signedIn && !signingIn) return '/sign_in';
+
+        if (signedIn && signingIn) return '/';
+
+        return null;
+      },
+      initialLocation: '/',
       routes: [
         GoRoute(
           name: 'sign_in',
@@ -45,4 +49,11 @@ class App extends StatelessWidget {
       ],
       errorBuilder: (context, state) =>
           Scaffold(body: Center(child: Text(state.error.toString()))));
+
+  runApp(MaterialApp.router(
+      routeInformationParser: goRouter.routeInformationParser,
+      routerDelegate: goRouter.routerDelegate,
+      title: title,
+      themeMode: ThemeMode.dark,
+      theme: ThemeData(scaffoldBackgroundColor: Colors.black)));
 }

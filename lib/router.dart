@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_lab/screens/signed_in.dart';
+import 'package:flutter_lab/screens/home.dart';
 import 'package:flutter_lab/sign_in_status.dart';
 import 'package:go_router/go_router.dart';
-
-import 'screens/home.dart';
-import 'screens/measurement.dart';
+// import 'screens/measurement.dart';
 import 'screens/sign_in.dart';
 
 final _routes = [
@@ -13,17 +11,20 @@ final _routes = [
     path: '/sign_in',
     builder: (ctx, state) => SignInScreen(from: state.queryParams['from']),
   ),
+  // GoRoute(name: 'private_redirect', path: '/private', routes: [
+  //   GoRoute(
+  //       name: 'measurement',
+  //       path: 'measurements/:id',
+  //       builder: (ctx, state) => MeasurementScreen(state.params['id']!))
+  // ]),
   GoRoute(
-      name: 'home',
-      path: '/',
-      // builder: (ctx, state) => const HomeScreen(),
-      builder: (ctx, state) => const SignedInScreen(),
-      routes: [
-        GoRoute(
-            name: 'measurement',
-            path: 'measurements/:id',
-            builder: (ctx, state) => MeasurementScreen(state.params['id']!))
-      ]),
+      name: 'private',
+      path: '/private/:tab',
+      builder: (ctx, state) {
+        final selectedTab = state.params['tab']!;
+
+        return HomeScreen(selectedTab: selectedTab);
+      })
 ];
 
 GoRouter createRouter(SignInStatus signInStatus) {
@@ -33,6 +34,8 @@ GoRouter createRouter(SignInStatus signInStatus) {
         final signedIn = signInStatus.isSignedIn;
         final signInLoc = state.namedLocation('sign_in');
         final headingToSignIn = state.subloc == signInLoc;
+
+        if (state.subloc == '/') return '/private/home';
 
         if (!signedIn && !headingToSignIn) {
           return state
@@ -46,7 +49,7 @@ GoRouter createRouter(SignInStatus signInStatus) {
         }
 
         if (signedIn && headingToSignIn) {
-          return state.namedLocation('home');
+          return state.namedLocation('private', params: {'tab': 'home'});
         }
 
         return null;

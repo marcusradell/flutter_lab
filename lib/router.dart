@@ -37,6 +37,12 @@ GoRouter createRouter(SignInStatus signInStatus) {
               .namedLocation('sign_in', queryParams: {'from': state.subloc});
         }
 
+        var from = state.queryParams['from'];
+
+        if (signedIn && from != null) {
+          return from;
+        }
+
         if (signedIn && headingToSignIn) {
           return state.namedLocation('home');
         }

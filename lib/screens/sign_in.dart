@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_lab/sign_in_status.dart';
+import 'package:provider/provider.dart';
 
 class SignInScreen extends StatelessWidget {
   final String? from;
@@ -12,11 +13,7 @@ class SignInScreen extends StatelessWidget {
             child: ElevatedButton(
       child: const Text('Sign in'),
       onPressed: () {
-        if (from == null) {
-          context.goNamed('home');
-        } else {
-          context.go(from!);
-        }
+        context.read<SignInStatus>().isSignedIn = true;
       },
     )));
   }

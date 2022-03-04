@@ -49,5 +49,8 @@ class _HomeScreen extends State<HomeScreen> with TickerProviderStateMixin {
               controller: _tabController,
               tabs: [for (final tab in tabs) Tab(text: tab)],
               onTap: (i) =>
-                  context.goNamed("private", params: {'tab': tabs[i]}))));
+                  context.goNamed("private", params: {'tab': tabs[i]}))),
+      body: TabBarView(
+          controller: _tabController,
+          children: [for (final tab in tabs) Center(child: Text(tab))]));
 }

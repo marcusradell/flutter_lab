@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lab/router.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import 'sign_in_status.dart';
@@ -18,7 +17,9 @@ class App extends StatelessWidget {
         routerDelegate: goRouter.routerDelegate,
         title: title,
         themeMode: ThemeMode.dark,
-        theme: ThemeData(scaffoldBackgroundColor: Colors.black));
+        theme: ThemeData(
+          scaffoldBackgroundColor: Colors.pink,
+        ));
 
     return ChangeNotifierProvider<SignInStatus>(
         create: (_) => signInStatus, child: router);

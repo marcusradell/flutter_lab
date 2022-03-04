@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lab/screens/signed_in.dart';
 import 'package:flutter_lab/sign_in_status.dart';
 import 'package:go_router/go_router.dart';
 
@@ -15,7 +16,8 @@ final _routes = [
   GoRoute(
       name: 'home',
       path: '/',
-      builder: (ctx, state) => const HomeScreen(),
+      // builder: (ctx, state) => const HomeScreen(),
+      builder: (ctx, state) => const SignedInScreen(),
       routes: [
         GoRoute(
             name: 'measurement',

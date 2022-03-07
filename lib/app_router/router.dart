@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_lab/screens/home.dart';
-import 'package:flutter_lab/sign_in_status.dart';
+import 'package:flutter_lab/app_router/home.dart';
+import 'package:flutter_lab/app_router/sign_in_status.dart';
 import 'package:go_router/go_router.dart';
 // import 'screens/measurement.dart';
-import 'screens/sign_in.dart';
+import 'sign_in.dart';
 
 final _routes = [
   GoRoute(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_lab/sign_in_status.dart';
+import 'package:flutter_lab/app_router/sign_in_status.dart';
 import 'package:provider/provider.dart';
 
 class SignInScreen extends StatelessWidget {

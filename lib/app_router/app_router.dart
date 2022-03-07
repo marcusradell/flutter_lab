@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_lab/router.dart';
 import 'package:provider/provider.dart';
 
-import 'sign_in_status.dart';
+import '../sign_in_status.dart';
 
-class App extends StatelessWidget {
+class AppRouter extends StatelessWidget {
   final signInStatus = SignInStatus();
-  final title = "Marcus Rådell's Flutter Lab";
+
+  final String title;
+
+  AppRouter({required this.title, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

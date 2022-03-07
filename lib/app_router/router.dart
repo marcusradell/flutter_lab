@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_lab/app_router/home.dart';
 import 'package:flutter_lab/app_router/sign_in_status.dart';
 import 'package:go_router/go_router.dart';
-// import 'screens/measurement.dart';
 import 'sign_in.dart';
 
 final _routes = [
@@ -11,12 +10,6 @@ final _routes = [
     path: '/sign_in',
     builder: (ctx, state) => SignInScreen(from: state.queryParams['from']),
   ),
-  // GoRoute(name: 'private_redirect', path: '/private', routes: [
-  //   GoRoute(
-  //       name: 'measurement',
-  //       path: 'measurements/:id',
-  //       builder: (ctx, state) => MeasurementScreen(state.params['id']!))
-  // ]),
   GoRoute(
       name: 'private',
       path: '/private/:tab',

@@ -15,44 +15,44 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreen extends State<HomeScreen> with TickerProviderStateMixin {
-  late final TabController _tabController;
+  late final PageController _pageController;
 
   @override
   void initState() {
     super.initState();
 
-    _tabController = TabController(
-        length: tabs.length,
-        vsync: this,
-        initialIndex:
-            tabs.indexWhere((element) => element == widget.selectedTab));
+    var page = tabs.indexWhere((element) => widget.selectedTab == element);
+
+    _pageController = PageController(initialPage: page);
   }
 
   @override
   void dispose() {
-    _tabController.dispose();
+    _pageController.dispose();
     super.dispose();
   }
 
   @override
   void didUpdateWidget(HomeScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _tabController.index =
-        tabs.indexWhere((element) => element == widget.selectedTab);
+    var page = tabs.indexWhere((element) => element == widget.selectedTab);
+    _pageController.animateToPage(page,
+        duration: const Duration(milliseconds: 400), curve: Curves.ease);
   }
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(
-          title: Text((context as Element)
-              .findAncestorWidgetOfExactType<MaterialApp>()!
-              .title),
-          bottom: TabBar(
-              controller: _tabController,
-              tabs: [for (final tab in tabs) Tab(text: tab)],
-              onTap: (i) =>
-                  context.goNamed("private", params: {'tab': tabs[i]}))),
-      body: TabBarView(controller: _tabController, children: [
+      bottomNavigationBar: BottomNavigationBar(
+          onTap: (i) => context.goNamed("private", params: {'tab': tabs[i]}),
+          currentIndex:
+              tabs.indexWhere((element) => widget.selectedTab == element),
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.abc), label: 'home'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.ac_unit), label: 'insights'),
+            BottomNavigationBarItem(icon: Icon(Icons.ac_unit), label: 'me')
+          ]),
+      body: PageView(controller: _pageController, children: [
         Center(
             child: Column(
           children: [
